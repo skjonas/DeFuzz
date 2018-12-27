@@ -2,7 +2,7 @@
 # Copyright: (C) 2018-2019 Lovac42
 # Support: https://github.com/lovac42/DeFuzz
 # License: GNU GPL, version 3 or later; http://www.gnu.org/copyleft/gpl.html
-# Version: 0.0.2
+# Version: 0.0.3
 
 
 from aqt import mw
@@ -12,7 +12,7 @@ from .menuopt import *
 from .const import *
 
 
-def deFuzzer(sched, ivl, _old):
+def fuzzIvlRange(sched, ivl, _old):
     card = mw.reviewer.card
     if not card:
         return _old(sched, ivl)
@@ -20,47 +20,27 @@ def deFuzzer(sched, ivl, _old):
     if not conf.get('defuzz',0):
         return _old(sched, ivl)
     # print('using defuzz')
+    return deFuzzer(ivl, conf)
 
-    n=m=0
-    if ivl < 2:
-        return [1, 1]
-    elif ivl == 2:
-        n=conf.get('defuzz_ivl2',3)
-        return [ivl, n]
-    elif ivl < 7:
-        n=conf.get('defuzz_ivl7',25)
-        m=1
-    elif ivl < 21:
-        n=conf.get('defuzz_ivl21',15)
-        m=conf.get('defuzz_ivl21m',2)
-    elif ivl < 30:
-        n=conf.get('defuzz_ivl30',15)
-        m=conf.get('defuzz_ivl30m',2)
-    elif ivl < 60:
-        n=conf.get('defuzz_ivl60',5)
-        m=conf.get('defuzz_ivl60m',4)
-    elif ivl < 90:
-        n=conf.get('defuzz_ivl90',5)
-        m=conf.get('defuzz_ivl90m',4)
-    elif ivl < 120:
-        n=conf.get('defuzz_ivl120',5)
-        m=conf.get('defuzz_ivl120m',4)
-    elif ivl < 200:
-        n=conf.get('defuzz_ivl200',5)
-        m=conf.get('defuzz_ivl200m',4)
-    else:
-        n=conf.get('defuzz_ivlAll',5)
-        m=conf.get('defuzz_ivlAll',4)
 
-    if not n:
+def deFuzzer(ivl, conf):
+    p=m=0
+    for L in FUZZ_LEVELS:
+        if not L[0] or ivl < L[0]:
+            m=conf.get('%s%dm'%(KEY,L[0]),L[1])
+            p=conf.get(KEY+str(L[0]),L[2])
+            break
+    if not p:
         return [ivl, ivl]
-    fuzz = max(m, int(ivl*n/100.0))
+    if ivl<=2:
+        return [m, p] #possible zero
+    fuzz = max(m, int(ivl*p/100.0))
     fuzz_min = max(1,ivl-fuzz)
     return [fuzz_min, ivl+fuzz]
 
 
-Scheduler._fuzzIvlRange = wrap(Scheduler._fuzzIvlRange, deFuzzer, 'around')
+Scheduler._fuzzIvlRange = wrap(Scheduler._fuzzIvlRange, fuzzIvlRange, 'around')
 if ANKI21:
     from anki.schedv2 import Scheduler as Scheduler2
-    Scheduler2._fuzzIvlRange = wrap(Scheduler2._fuzzIvlRange, deFuzzer, 'around')
+    Scheduler2._fuzzIvlRange = wrap(Scheduler2._fuzzIvlRange, fuzzIvlRange, 'around')
 
