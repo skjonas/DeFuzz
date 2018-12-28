@@ -2,7 +2,7 @@
 # Copyright: (C) 2018-2019 Lovac42
 # Support: https://github.com/lovac42/DeFuzz
 # License: GNU GPL, version 3 or later; http://www.gnu.org/copyleft/gpl.html
-# Version: 0.0.2
+# Version: 0.0.3
 
 
 import aqt
@@ -25,6 +25,13 @@ def dconfsetupUi(self, Dialog):
     self.defuzz = QtWidgets.QCheckBox(self.tab_3)
     self.defuzz.setText(_('Use deFuzz'))
     layoutDF.addWidget(self.defuzz, r, 0, 1, 1)
+
+    label=QtWidgets.QLabel(tabDF)
+    label.setText(_("MIN_FUZZ"))
+    layoutDF.addWidget(label, r, 1, 1, 1)
+    label=QtWidgets.QLabel(tabDF)
+    label.setText(_("% FUZZ (0 to disabled)"))
+    layoutDF.addWidget(label, r, 2, 1, 1)
     r+=1
 
     self.defuzz_perc=[]
@@ -32,11 +39,11 @@ def dconfsetupUi(self, Dialog):
     for L in FUZZ_LEVELS:
         label=QtWidgets.QLabel(tabDF)
         if not L[0]:
-            label.setText(_("min(n, %fuzz) @ all else: (0%=disable)"))
+            label.setText(_("All Else:"))
         elif L[0] <=3: #looks weird...
-            label.setText(_("rand(min_ivl, max_ivl) @ ivl=%d:"%(L[0]-1)))
+            label.setText(_("[min_IVL] [max_IVL] @ IVL=%d:"%(L[0]-1)))
         else:
-            label.setText(_("min(n, %%fuzz) @ ivl<%d: (0%%=disable)"%L[0]))
+            label.setText(_("@ IVL < %d:"%L[0]))
         layoutDF.addWidget(label, r, 0, 1, 1)
 
         mFuzz=QtWidgets.QSpinBox(tabDF)
@@ -49,7 +56,6 @@ def dconfsetupUi(self, Dialog):
         perc=QtWidgets.QSpinBox(tabDF)
         perc.setMinimum(0)
         perc.setMaximum(666)
-        perc.setMaximumWidth(120)
         self.defuzz_perc.append(perc)
         layoutDF.addWidget(perc, r, 2, 1, 1)
         r+=1
