@@ -2,7 +2,7 @@
 # Copyright: (C) 2018-2019 Lovac42
 # Support: https://github.com/lovac42/DeFuzz
 # License: GNU GPL, version 3 or later; http://www.gnu.org/copyleft/gpl.html
-# Version: 0.0.3
+# Version: 0.0.4
 
 
 import aqt
@@ -27,11 +27,12 @@ def dconfsetupUi(self, Dialog):
     layoutDF.addWidget(self.defuzz, r, 0, 1, 1)
 
     label=QtWidgets.QLabel(tabDF)
-    label.setText(_("MIN_FUZZ"))
+    label.setText(_("(At least)"))
     layoutDF.addWidget(label, r, 1, 1, 1)
+
     label=QtWidgets.QLabel(tabDF)
-    label.setText(_("% FUZZ (0 to disabled)"))
-    layoutDF.addWidget(label, r, 2, 1, 1)
+    label.setText(_("(0 to disabled)"))
+    layoutDF.addWidget(label, r, 3, 1, 1)
     r+=1
 
     self.defuzz_perc=[]
@@ -39,11 +40,14 @@ def dconfsetupUi(self, Dialog):
     for L in FUZZ_LEVELS:
         label=QtWidgets.QLabel(tabDF)
         if not L[0]:
-            label.setText(_("All Else:"))
+            label.setText(_("<b>All Else:</b>"))
+            maxx="%"
         elif L[0] <=3: #looks weird...
-            label.setText(_("[min_IVL] [max_IVL] @ IVL=%d:"%(L[0]-1)))
+            label.setText(_("<b>IVL=%d:</b>"%(L[0]-1)))
+            maxx="max day(s)"
         else:
-            label.setText(_("@ IVL < %d:"%L[0]))
+            label.setText(_("<b>IVL &lt; %d:</b>"%L[0]))
+            maxx="%"
         layoutDF.addWidget(label, r, 0, 1, 1)
 
         mFuzz=QtWidgets.QSpinBox(tabDF)
@@ -53,11 +57,22 @@ def dconfsetupUi(self, Dialog):
         self.defuzz_fuzz.append(mFuzz)
         layoutDF.addWidget(mFuzz, r, 1, 1, 1)
 
+        label=QtWidgets.QLabel(tabDF)
+        label.setText(_("day(s)"))
+        label.setMaximumWidth(40)
+        layoutDF.addWidget(label, r, 2, 1, 1)
+
         perc=QtWidgets.QSpinBox(tabDF)
         perc.setMinimum(0)
         perc.setMaximum(666)
+        perc.setMaximumWidth(80)
         self.defuzz_perc.append(perc)
-        layoutDF.addWidget(perc, r, 2, 1, 1)
+        layoutDF.addWidget(perc, r, 3, 1, 1)
+
+        label=QtWidgets.QLabel(tabDF)
+        label.setText(_(maxx))
+        label.setMaximumWidth(55)
+        layoutDF.addWidget(label, r, 4, 1, 1)
         r+=1
 
     vLayoutDF.addLayout(layoutDF)
