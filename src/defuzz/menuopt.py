@@ -2,7 +2,7 @@
 # Copyright: (C) 2018-2019 Lovac42
 # Support: https://github.com/lovac42/DeFuzz
 # License: GNU GPL, version 3 or later; http://www.gnu.org/copyleft/gpl.html
-# Version: 0.0.4
+# Version: 0.0.5
 
 
 import aqt
@@ -22,7 +22,7 @@ def dconfsetupUi(self, Dialog):
     vLayoutDF = QtWidgets.QVBoxLayout(tabDF)
     layoutDF = QtWidgets.QGridLayout()
 
-    self.defuzz = QtWidgets.QCheckBox(self.tab_3)
+    self.defuzz = QtWidgets.QCheckBox(tabDF)
     self.defuzz.setText(_('Use deFuzz'))
     layoutDF.addWidget(self.defuzz, r, 0, 1, 1)
 
