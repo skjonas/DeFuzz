@@ -14,6 +14,7 @@ https://apps.ankiweb.net/docs/manual.html#what-spaced-repetition-algorithm-does-
 
 <img src="https://raw.githubusercontent.com/lovac42/DeFuzz/master/screenshots/guide.png" />  
 
+<img src="https://raw.githubusercontent.com/lovac42/DeFuzz/master/screenshots/guide2.png" />  
 
 
 ## Screenshots:
