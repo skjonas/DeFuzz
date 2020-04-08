@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# Copyright: (C) 2018-2019 Lovac42
+# Copyright: (C) 2018-2020 Lovac42
 # Support: https://github.com/lovac42/DeFuzz
 # License: GNU GPL, version 3 or later; http://www.gnu.org/copyleft/gpl.html
-# Version: 0.0.5
+# Version: 0.0.6
 
 
 import aqt
@@ -94,7 +94,7 @@ def loadConf(self):
 
 
 def saveConf(self):
-    self.conf['defuzz']=self.form.defuzz.checkState()
+    self.conf['defuzz']=int(self.form.defuzz.checkState())
     i=0
     for L in FUZZ_LEVELS:
         self.conf['%s%d'%(KEY,L[0])]=self.form.defuzz_perc[i].value()
