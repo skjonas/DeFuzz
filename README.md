@@ -12,18 +12,18 @@ After you select an ease button, Anki also applies a small amount of random “f
 ```
 https://apps.ankiweb.net/docs/manual.html#what-spaced-repetition-algorithm-does-anki-use
 
-<img src="https://raw.githubusercontent.com/lovac42/DeFuzz/master/screenshots/guide.png" />  
+<img src="https://raw.githubusercontent.com/skjonas/DeFuzz/master/screenshots/guide.png" />  
 
-<img src="https://raw.githubusercontent.com/lovac42/DeFuzz/master/screenshots/guide2.png" />  
+<img src="https://raw.githubusercontent.com/skjonas/DeFuzz/master/screenshots/guide2.png" />  
 
 
 ## Screenshots:
 
-<img src="https://raw.githubusercontent.com/lovac42/DeFuzz/master/screenshots/ankiDef.png" />  
+<img src="https://raw.githubusercontent.com/skjonas/DeFuzz/master/screenshots/ankiDef.png" />  
 
-<img src="https://raw.githubusercontent.com/lovac42/DeFuzz/master/screenshots/nofuzz.png" />  
+<img src="https://raw.githubusercontent.com/skjonas/DeFuzz/master/screenshots/nofuzz.png" />  
 
-<img src="https://raw.githubusercontent.com/lovac42/DeFuzz/master/screenshots/sm19.png" />  
+<img src="https://raw.githubusercontent.com/skjonas/DeFuzz/master/screenshots/sm19.png" />  
 
 ## Configs:
 If you need peach fuzz ranges, you may edit const.py to add specific cutoff intervals.
