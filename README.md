@@ -2,7 +2,7 @@
 
 <b>Note:</b> If you are updating, please check options values again as extra date ranges has been added.
 
-<img src="https://github.com/lovac42/DeFuzz/master/screenshots/defuzz.jpg" />  
+<img src="https://raw.githubusercontent.com/skjonas/DeFuzz/master/screenshots/defuzz.jpg" />  
 
 ## About:
 This addon trims or removes the "fuzz" in Anki.
